@@ -71,44 +71,42 @@ Download buttons for CSV, PDF, JSON
 
 4. Installation Procedure
 4.1 Clone Repository
-bash
-Copy code
+
 git clone https://github.com/USERNAME/REPO.git
 cd REPO
+
 4.2 Install Dependencies
-bash
-Copy code
+
 pip install -r requirements.txt
 4.3 Environment Setup
 Create a .env file in the root directory:
 
 env
-Copy code
+
 GROQ_API_KEY=your_groq_api_key
+
 4.4 Virtual Environment (Recommended)
-bash
-Copy code
+
 python -m venv venv
 # Activate:
 source venv/bin/activate   # macOS/Linux
 venv\Scripts\activate      # Windows
+
 5. Usage
 5.1 Command-Line Interface
-bash
-Copy code
+
 python rag_question_cli.py
 Supports both interactive mode and direct mode with arguments:
 
-bash
-Copy code
+
 python rag_question_cli.py --url "https://example.com/report.pdf" --company "Apple" --topic "sustainability" --count 8 --export both
+
 5.2 Web Interface
-bash
-Copy code
+
 streamlit run web_interface.py
+
 6. Project Structure
-bash
-Copy code
+
 .
 ├── RAG.py                 # Core backend with document processing & QA logic
 ├── rag_question_cli.py    # CLI interface
@@ -119,6 +117,7 @@ Copy code
 ├── results/               # Generated analysis exports
 ├── faiss_vectorstore/     # Persistent FAISS storage
 └── README.md              # Documentation
+
 7. Dependencies
 Key packages from requirements.txt:
 
