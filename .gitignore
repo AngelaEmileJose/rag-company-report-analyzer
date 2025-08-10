@@ -1,0 +1,11 @@
+# .gitignore
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.DS_Store
+*.swp
+temp_upload.pdf
+faiss_vectorstore/
+results/
