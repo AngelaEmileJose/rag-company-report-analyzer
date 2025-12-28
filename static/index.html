@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Company Report Analyzer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="background-glow"></div>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Report<span class="highlight">Analyzer</span></span>
+            </div>
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span id="system-status">System Ready</span>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <button class="nav-btn active" data-tab="upload">
+                        <i class="fa-solid fa-file-import"></i> Upload
+                    </button>
+                    <button class="nav-btn" data-tab="chat" disabled id="chat-tab-btn">
+                        <i class="fa-solid fa-comments"></i> Chat
+                    </button>
+                    <button class="nav-btn" data-tab="analyze" disabled id="analyze-tab-btn">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i> Analyze
+                    </button>
+                </nav>
+
+                <div class="document-info" id="doc-info-panel" style="display: none;">
+                    <h3>Current Document</h3>
+                    <div class="info-card">
+                        <i class="fa-regular fa-file-pdf"></i>
+                        <span id="current-doc-name">report.pdf</span>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Chunks</span>
+                            <span class="stat-value" id="doc-chunks">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Processed</span>
+                            <span class="stat-value" id="doc-time">0s</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Content Area -->
+            <div class="content-area">
+
+                <!-- Upload Tab -->
+                <div class="tab-content active" id="upload-tab">
+                    <div class="upload-container">
+                        <h2>Start Analysis</h2>
+                        <p>Upload a company report (PDF) or provide a URL to begin.</p>
+
+                        <div class="input-group">
+                            <div class="url-input-wrapper">
+                                <i class="fa-solid fa-link"></i>
+                                <input type="text" id="url-input"
+                                    placeholder="https://example.com/financial_report.pdf">
+                            </div>
+                            <button id="process-url-btn" class="primary-btn">
+                                Process URL <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <div class="divider"><span>OR</span></div>
+
+                        <div class="file-drop-zone" id="drop-zone">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <h3>Drag & Drop PDF here</h3>
+                            <p>or click to browse files</p>
+                            <input type="file" id="file-input" accept=".pdf" hidden>
+                        </div>
+
+                        <div id="processing-status" class="status-display hidden">
+                            <div class="spinner"></div>
+                            <span id="status-text">Processing document...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Tab -->
+                <div class="tab-content" id="chat-tab">
+                    <div class="chat-interface">
+                        <div class="chat-history" id="chat-history">
+                            <div class="message system">
+                                <div class="message-content">
+                                    Hello! I've analyzed the document. Ask me anything about the company's financial
+                                    performance, strategy, or risks.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-area">
+                            <div class="input-wrapper">
+                                <textarea id="chat-input" placeholder="Type your question here..." rows="1"></textarea>
+                                <button id="send-btn" class="icon-btn">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analyze Tab -->
+                <div class="tab-content" id="analyze-tab">
+                    <div class="analysis-dashboard">
+
+                        <div class="analysis-controls">
+                            <h3>Executive Briefing</h3>
+                            <button id="summary-btn" class="primary-btn full-width">
+                                <i class="fa-solid fa-bolt"></i> Generate Executive Summary
+                            </button>
+                            <div id="summary-results" class="results-container hidden"></div>
+                        </div>
+
+                        <div class="analysis-controls" style="margin-top: 30px;">
+                            <h3>Deep Dive Analysis</h3>
+                            <div class="control-row">
+                                <div class="input-field">
+                                    <label>Company Name</label>
+                                    <input type="text" id="company-name" placeholder="e.g. Apple Inc.">
+                                </div>
+                                <div class="input-field">
+                                    <label>Focus Topic</label>
+                                    <input type="text" id="analysis-topic" placeholder="e.g. Sustainability">
+                                </div>
+                                <button id="generate-btn" class="secondary-btn">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Generate
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="analysis-results" class="results-container hidden">
+                            <!-- Questions will be injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+# Fixed Production Configuration for RAG System
+# Updated with current Groq models and optimized settings
+
+# API Configuration
+groq_api_key: "${GROQ_API_KEY}"  # Will be loaded from environment
+model_name: "llama-3.3-70b-versatile"  # Updated to current model
+temperature: 0.1
+max_tokens: null
+
+# Processing Configuration - Optimized for better retrieval
+chunk_size: 800  # Reduced for better matching
+chunk_overlap: 100  # Reduced overlap
+max_file_size_mb: 50
+
+# Vector Store Configuration
+embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+vector_store_type: "faiss"
+retrieval_k: 8  # Increased for better coverage
+score_threshold: 0.0  # Disabled for better retrieval
+
+# Caching Configuration
+enable_cache: true
+cache_ttl_hours: 24
+redis_url: null
+
+# File System Configuration
+data_dir: "./data"
+cache_dir: "./cache"
+vector_store_dir: "./vector_stores"
+logs_dir: "./logs"
+
+# Performance Configuration
+max_concurrent_downloads: 3
+request_timeout: 60
+max_retries: 3
+
+# Logging Configuration
+log_level: "INFO"
+log_to_file: true
+max_log_size_mb: 10
+
+# Debug Configuration
+enable_debug: false  # Set to true for troubleshooting
+
+# Security Configuration
+allowed_file_types:
+  - ".pdf"
+  - ".txt"
+  - ".docx"
+max_url_redirects: 5
