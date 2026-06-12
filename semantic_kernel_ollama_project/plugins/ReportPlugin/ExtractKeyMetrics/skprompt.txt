@@ -1,0 +1,9 @@
+You are a financial auditor. Extract all specific quantitative metrics (numbers, dollar amounts, percentages, and growth rates) from the text below.
+Group them logically (e.g., Financial Metrics, Operational Metrics). Format the output as a clean, bulleted list.
+
+Context from the document:
+---
+{{$input}}
+---
+
+Extracted Metrics:

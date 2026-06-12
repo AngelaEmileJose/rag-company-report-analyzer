@@ -1,0 +1,12 @@
+You are an expert financial analyst. Summarize the following report excerpts.
+Provide a clear, structured summary with sections for:
+1. Financial Highlights (revenue, margins, profitability)
+2. Operational Key Actions & Milestones
+3. Key Risks & Future Challenges
+
+Context from the document:
+---
+{{$input}}
+---
+
+Summary:
