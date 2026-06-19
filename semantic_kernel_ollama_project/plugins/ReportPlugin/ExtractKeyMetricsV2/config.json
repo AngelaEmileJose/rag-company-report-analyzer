@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "description": "Extracts financial and operational metrics as structured JSON with explicit period labels, units, and source citations (chunk index + page). Replaces the v1 free-form bullet list which had no unit normalization and no period axis.",
+  "execution_settings": {
+    "default": {
+      "max_tokens": 2000,
+      "temperature": 0.0,
+      "top_p": 0.9
+    }
+  },
+  "input_variables": [
+    {
+      "name": "input",
+      "description": "Structured context from RetrievalPlugin: list of [Chunk N | Page P | score S] blocks separated by ---. The chunk index and page in the header are the citation keys the skill must use.",
+      "required": true
+    }
+  ]
+}

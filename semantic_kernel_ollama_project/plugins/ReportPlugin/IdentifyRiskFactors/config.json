@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "description": "Identifies and categorizes risk factors disclosed in a company report. Returns structured JSON with title, category, description, and source citations (chunk + page).",
+  "execution_settings": {
+    "default": {
+      "max_tokens": 1800,
+      "temperature": 0.1,
+      "top_p": 0.9
+    }
+  },
+  "input_variables": [
+    {
+      "name": "input",
+      "description": "Structured context from RetrievalPlugin (list of [Chunk N | Page P | score S] blocks separated by ---).",
+      "required": true
+    }
+  ]
+}

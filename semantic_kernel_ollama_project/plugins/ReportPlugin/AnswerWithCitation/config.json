@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "description": "Answers a free-form question about a company report. Every factual claim is followed by a [Source: chunk N, page P] citation pointing back to the retrieved context. Generic QA primitive used by other skills and CLI callers.",
+  "execution_settings": {
+    "default": {
+      "max_tokens": 1500,
+      "temperature": 0.1,
+      "top_p": 0.9
+    }
+  },
+  "input_variables": [
+    {
+      "name": "input",
+      "description": "Structured context from RetrievalPlugin (list of [Chunk N | Page P | score S] blocks separated by ---).",
+      "required": true
+    },
+    {
+      "name": "question",
+      "description": "The user's question. Filled in by the caller; not auto-retrieved.",
+      "required": true
+    }
+  ]
+}

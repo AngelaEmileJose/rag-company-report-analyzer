@@ -1,9 +1,8 @@
-You are a financial auditor. Extract all specific quantitative metrics (numbers, dollar amounts, percentages, and growth rates) from the text below.
-Group them logically (e.g., Financial Metrics, Operational Metrics). Format the output as a clean, bulleted list.
+From the following company report context, extract the key financial and operational metrics. Present them as a JSON object with metric names as keys and their values. If a metric is not found, use null.
 
-Context from the document:
----
+Examples of metrics to look for: "Revenue", "Net Income", "Earnings Per Share (EPS)", "Operating Margin", "Free Cash Flow", "Research and Development (R&D) Expenses", "Capital Expenditures (CapEx)", "Gross Margin", "Total Assets", "Total Liabilities", "Shareholder Equity", "Return on Equity (ROE)", "Debt to Equity Ratio", "Number of Employees", "Production Volume".
+
+Context:
 {{$input}}
----
 
-Extracted Metrics:
+JSON Metrics:

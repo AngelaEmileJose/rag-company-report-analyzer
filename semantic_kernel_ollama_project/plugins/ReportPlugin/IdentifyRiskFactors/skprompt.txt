@@ -1,0 +1,50 @@
+You are identifying risk factors disclosed in a company report (10-K / 10-Q /
+quarterly update style). The context below contains retrieved chunks; each
+chunk header is [Chunk N | Page P | score S].
+
+# Task
+Extract every distinct risk factor mentioned in the context. For each risk:
+  1. Give it a short, descriptive title.
+  2. State the category (choose the most appropriate):
+     - Market & Competition
+     - Operational & Supply Chain
+     - Regulatory & Legal
+     - Financial & Liquidity
+     - Cybersecurity & Technology
+     - Macroeconomic & Geopolitical
+     - Product Liability & Safety
+     - Workforce & Human Capital
+     - Environmental & Climate
+     - Other
+  3. Summarize the risk in 1-2 sentences, in the language of the report.
+  4. Cite the supporting chunks as [{"chunk": N, "page": P}, ...].
+
+# Rules
+  - Use ONLY risks explicitly disclosed in the context. Do not invent risks.
+  - One risk per entry. If the same risk is repeated across chunks, merge it and
+    cite all supporting chunks.
+  - If no risk factors are present in the context, return an empty "risks" list
+    and set "summary" to a single sentence: "No risk factors identified in the
+    provided context."
+
+# Output format
+Return ONLY a JSON object. No prose, no markdown fences.
+
+{
+  "summary": "string  (one-sentence overall characterization, e.g. 'Identified 7 risk factors across regulatory, supply chain, and competitive categories.')",
+  "risks": [
+    {
+      "title": "string",
+      "category": "one of the categories above",
+      "description": "string",
+      "sources": [ {"chunk": 1, "page": 4} ]
+    }
+  ]
+}
+
+# Context
+---
+{{$input}}
+---
+
+JSON:

@@ -1,18 +1,19 @@
 {
   "schema": 1,
-  "description": "Extracts key financial and operational metrics from a company report.",
-  "execution_settings": {
-    "default": {
-      "max_tokens": 800,
-      "temperature": 0.1,
-      "top_p": 0.9
-    }
+  "description": "Extracts key financial and operational metrics from a company report context and returns them as a JSON object.",
+  "type": "completion",
+  "completion": {
+    "max_tokens": 700,
+    "temperature": 0.3,
+    "top_p": 0.0,
+    "presence_penalty": 0.0,
+    "frequency_penalty": 0.0
   },
-  "input_variables": [
+  "input_parameters": [
     {
       "name": "input",
-      "description": "The text content from the report to extract metrics from",
-      "required": true
+      "description": "The company report context to extract metrics from.",
+      "defaultValue": ""
     }
   ]
 }

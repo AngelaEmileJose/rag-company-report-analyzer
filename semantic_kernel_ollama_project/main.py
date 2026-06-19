@@ -11,6 +11,7 @@ from semantic_kernel.connectors.ai.open_ai import OpenAIChatCompletion
 
 # LangChain / FAISS imports (reusing embedding and vector store approach)
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_core.documents import Document
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 
@@ -20,30 +21,40 @@ from retrieval_plugin import RetrievalPlugin
 # Load environment variables
 load_dotenv()
 
-def extract_text_from_pdf(pdf_path: str) -> str:
-    """Extract all text from a PDF document using PyMuPDF."""
+def extract_documents_from_pdf(pdf_path: str) -> list[Document]:
+    """Extract text from a PDF and return LangChain Documents with page metadata.
+
+    Each Document's metadata['page'] is the 1-indexed page number, which the
+    retrieval plugin uses to produce [Chunk N | Page M | score X] context blocks.
+    """
     print(f"Reading PDF: {pdf_path}...")
     doc = fitz.open(pdf_path)
-    text = ""
-    for page in doc:
-        text += page.get_text()
-    print(f"Extracted {len(text)} characters.")
-    return text
+    documents = []
+    for page_idx, page in enumerate(doc, start=1):
+        text = page.get_text()
+        if text.strip():
+            documents.append(Document(page_content=text, metadata={"page": page_idx}))
+    print(f"Extracted {len(documents)} non-empty pages.")
+    return documents
 
-def build_vector_store(text: str):
-    """Chunk text and build a FAISS vector index using SentenceTransformers embeddings."""
-    print("Chunking text and creating vector store...")
+def build_vector_store(documents: list[Document]):
+    """Chunk Documents and build a FAISS vector index using SentenceTransformers embeddings.
+
+    Page metadata is preserved on each chunk so the retrieval plugin can cite sources.
+    """
+    print("Chunking documents and creating vector store...")
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
         chunk_overlap=200,
         separators=["\n\n", "\n", " ", ""]
     )
-    chunks = text_splitter.split_text(text)
+    # split_documents preserves Document + metadata
+    chunks = text_splitter.split_documents(documents)
     print(f"Created {len(chunks)} text chunks.")
-    
+
     # Use the same model as the parent project
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-    vector_store = FAISS.from_texts(chunks, embeddings)
+    vector_store = FAISS.from_documents(chunks, embeddings)
     print("Vector store created successfully.")
     return vector_store
 
@@ -53,8 +64,8 @@ async def run_semantic_kernel_pipeline(pdf_path: str, model_name: str, endpoint:
     if not os.path.exists(pdf_path):
         raise FileNotFoundError(f"PDF file not found at: {pdf_path}")
     
-    text = extract_text_from_pdf(pdf_path)
-    vector_store = build_vector_store(text)
+    documents = extract_documents_from_pdf(pdf_path)
+    vector_store = build_vector_store(documents)
     
     # 2. Initialize Semantic Kernel
     print("\nInitializing Semantic Kernel...")

@@ -1,12 +1,6 @@
-You are an expert financial analyst. Summarize the following report excerpts.
-Provide a clear, structured summary with sections for:
-1. Financial Highlights (revenue, margins, profitability)
-2. Operational Key Actions & Milestones
-3. Key Risks & Future Challenges
+You are a helpful assistant. Summarize the following company report context concisely, highlighting key financial performance, revenue, profitability, and operational risks. Focus on the most important information.
 
-Context from the document:
----
+Context:
 {{$input}}
----
 
 Summary:
